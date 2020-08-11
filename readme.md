@@ -35,7 +35,7 @@ object Main extends IOApp {
       val password =
         for {
           region <- env("AWS_REGION").as[Region].default(Region.EU_WEST_1)
-          secret <- secretStrings(blocker, region)
+          secret <- secrets(blocker, region)
           passwords <- (
               secret("db-password-prod"),
               secret("api-key")
