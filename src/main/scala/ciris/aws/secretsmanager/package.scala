@@ -1,27 +1,27 @@
 package ciris.aws
 
-import cats.effect.{Blocker, Effect, IO, Resource}
+import cats.effect.{Blocker, IO, Resource}
 import ciris.ConfigValue
 import com.amazonaws.auth._
-import com.amazonaws.services.simplesystemsmanagement._
+import com.amazonaws.services.secretsmanager._
 
-package object ssm {
-  def params(
+package object secretsmanager {
+  def secrets(
     blocker: Blocker,
     region: Region
-  ): ConfigValue[Param] =
-    params(blocker, region, new DefaultAWSCredentialsProviderChain())
+  ): ConfigValue[SecretString] =
+    secrets(blocker, region, new DefaultAWSCredentialsProviderChain())
 
-  def params(
+  def secrets(
     blocker: Blocker,
     region: Region,
     credentials: AWSCredentialsProvider
-  ): ConfigValue[Param] =
+  ): ConfigValue[SecretString] =
     ConfigValue.resource {
       Resource {
         IO {
           val client =
-            AWSSimpleSystemsManagementClientBuilder
+            AWSSecretsManagerClientBuilder
               .standard()
               .withRegion(region.asJava)
               .withCredentials(credentials)
@@ -30,7 +30,7 @@ package object ssm {
           val shutdown =
             IO(client.shutdown())
 
-          (ConfigValue.default(Param(client, blocker)), shutdown)
+          (ConfigValue.default(SecretString(client, blocker)), shutdown)
         }
       }
     }

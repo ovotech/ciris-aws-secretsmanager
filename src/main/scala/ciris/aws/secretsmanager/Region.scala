@@ -1,4 +1,4 @@
-package ciris.aws.ssm
+package ciris.aws.secretsmanager
 
 import cats.implicits._
 import ciris.ConfigDecoder

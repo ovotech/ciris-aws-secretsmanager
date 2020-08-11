@@ -1,3 +1,4 @@
+name := "ciris-aws-secretsmanager"
 organization := "com.ovoenergy"
 bintrayOrganization := Some("ovotech")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
@@ -8,5 +9,5 @@ releaseCrossBuild := true
 
 libraryDependencies ++= Seq(
   "is.cir" %% "ciris" % "1.1.0",
-  "com.amazonaws" % "aws-java-sdk-ssm" % "1.11.667"
+  "com.amazonaws" % "aws-java-sdk-secretsmanager" % "1.11.667"
 )
