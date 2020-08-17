@@ -9,5 +9,7 @@ releaseCrossBuild := true
 
 libraryDependencies ++= Seq(
   "is.cir" %% "ciris" % "1.1.0",
-  "com.amazonaws" % "aws-java-sdk-secretsmanager" % "1.11.667"
+  "com.amazonaws" % "aws-java-sdk-secretsmanager" % "1.11.667",
+  "org.scalatest" %% "scalatest" % "3.1.0" % "test",
+
 )
