@@ -15,9 +15,10 @@ class RegionSpec extends AnyFlatSpec with Matchers {
   it should "Convert a region string to a Region" in {
 
     val region = ConfigValue.default("eu-west-1")
-      .as[Region].default(Region.EU_WEST_1)
+      .as[Region]
       .load[IO]
       .unsafeRunSync()
+
     region shouldBe Region.EU_WEST_1
   }
 }
