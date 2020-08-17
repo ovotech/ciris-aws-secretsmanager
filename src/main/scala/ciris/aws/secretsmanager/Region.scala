@@ -66,7 +66,7 @@ object Region {
     Some(region.asJava)
 
   def fromName(name: String): Option[Region] =
-    Regions.values.find(_.name == name).map(apply)
+    Regions.values.find(_.getName == name).map(apply)
 
   implicit val regionConfigDecoder: ConfigDecoder[String, Region] =
     ConfigDecoder[String].mapOption("Region")(fromName)
