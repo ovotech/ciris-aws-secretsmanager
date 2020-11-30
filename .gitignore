@@ -1,2 +1,6 @@
 target/
 .idea/
+.bloop/
+.metals/
+.vscode/
+project/**/metals.sbt
