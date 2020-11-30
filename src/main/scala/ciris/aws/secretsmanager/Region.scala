@@ -13,6 +13,7 @@ sealed abstract class Region(val asJava: Regions) {
 }
 
 object Region {
+  case object AF_SOUTH_1 extends Region(Regions.AF_SOUTH_1)
   case object AP_EAST_1 extends Region(Regions.AP_EAST_1)
   case object AP_NORTHEAST_1 extends Region(Regions.AP_NORTHEAST_1)
   case object AP_NORTHEAST_2 extends Region(Regions.AP_NORTHEAST_2)
@@ -24,6 +25,7 @@ object Region {
   case object CN_NORTHWEST_1 extends Region(Regions.CN_NORTHWEST_1)
   case object EU_CENTRAL_1 extends Region(Regions.EU_CENTRAL_1)
   case object EU_NORTH_1 extends Region(Regions.EU_NORTH_1)
+  case object EU_SOUTH_1 extends Region(Regions.EU_SOUTH_1)
   case object EU_WEST_1 extends Region(Regions.EU_WEST_1)
   case object EU_WEST_2 extends Region(Regions.EU_WEST_2)
   case object EU_WEST_3 extends Region(Regions.EU_WEST_3)
@@ -60,6 +62,8 @@ object Region {
       case Regions.US_GOV_EAST_1  => Region.US_GOV_EAST_1
       case Regions.US_WEST_1      => Region.US_WEST_1
       case Regions.US_WEST_2      => Region.US_WEST_2
+      case Regions.AF_SOUTH_1     => Region.AF_SOUTH_1
+      case Regions.EU_SOUTH_1     => Region.EU_SOUTH_1
     }
 
   def unapply(region: Region): Some[Regions] =
