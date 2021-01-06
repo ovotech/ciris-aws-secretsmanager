@@ -1,21 +1,19 @@
 package ciris.aws
 
-import cats.effect.{Blocker, IO, Resource}
+import cats.effect.{IO, Resource}
 import ciris.ConfigValue
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProviderChain
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
-import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerAsyncClient
 
 package object secretsmanager {
   def secrets(
-    blocker: Blocker,
     region: Region
   ): ConfigValue[SecretString] =
-    secrets(blocker, region, AwsCredentialsProviderChain.builder().addCredentialsProvider(DefaultCredentialsProvider.create()).build())
+    secrets(region, AwsCredentialsProviderChain.builder().addCredentialsProvider(DefaultCredentialsProvider.create()).build())
 
   def secrets(
-    blocker: Blocker,
     region: Region,
     credentials: AwsCredentialsProvider
   ): ConfigValue[SecretString] =
@@ -23,7 +21,7 @@ package object secretsmanager {
       Resource {
         IO {
           val client =
-            SecretsManagerClient.builder()
+            SecretsManagerAsyncClient.builder()
               .region(region.asJava)
               .credentialsProvider(credentials)
               .build()
@@ -31,7 +29,7 @@ package object secretsmanager {
           val shutdown =
             IO(client.close())
 
-          (ConfigValue.default(SecretString(client, blocker)), shutdown)
+          (ConfigValue.default(SecretString(client)), shutdown)
         }
       }
     }
