@@ -30,12 +30,11 @@ final case class Passwords(
 )
 
 object Main extends IOApp {
-  def run(args: List[String]): IO[ExitCode] =
-    Blocker[IO].use { blocker =>
+  def run(args: List[String]): IO[ExitCode] = {
       val password =
         for {
           region <- env("AWS_REGION").as[Region].default(Region.EU_WEST_1)
-          secret <- secrets(blocker, region)
+          secret <- secrets(region)
           passwords <- (
               secret("db-password-prod"),
               secret("api-key")
