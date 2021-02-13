@@ -1,6 +1,5 @@
 name := "ciris-aws-secretsmanager"
 organization := "com.ovoenergy"
-bintrayOrganization := Some("ovotech")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 scalaVersion := "2.13.4"
@@ -13,4 +12,37 @@ libraryDependencies ++= Seq(
   "org.scalameta" %% "munit" % "0.7.11" % Test
 )
 
+publishTo := sonatypePublishToBundle.value
+
 testFrameworks += new TestFramework("munit.Framework")
+
+sonatypeProfileName := "com.ovoenergy"
+publishMavenStyle := true
+
+homepage := Some(url("https://github.com/ovotech/ciris-aws-secretsmanager"))
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/ovotech/ciris-aws-secretsmanager"),
+    "scm:git@github.com:ovotech/ciris-aws-secretsmanager.git"
+  )
+)
+developers := List(
+  Developer(id="keirlawson", name="Keir Lawson", email="keirlawson@gmail.com", url=url("https://github.com/keirlawson/"))
+)
+
+import ReleaseTransformations._
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommandAndRemaining("+publishSigned"),
+  releaseStepCommand("sonatypeBundleRelease"),
+  setNextVersion,
+  commitNextVersion,
+  pushChanges
+)

@@ -9,9 +9,7 @@ This module is heavily derived from the existing [Ciris SSM module](https://gith
 To get started with [sbt](https://www.scala-sbt.org), simply add the following lines to your `build.sbt` file.
 
 ```scala
-resolvers += Resolver.bintrayRepo("ovotech", "maven")
-
-libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "1.0.0"
+libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "3.0.1"
 ```
 
 The library is published for Scala 2.12 and 2.13.
