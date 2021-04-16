@@ -5,24 +5,22 @@ import ciris.ConfigValue
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerAsyncClient
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerAsyncClientBuilder
 
 package object secretsmanager {
   def secrets(
     region: Region
   ): ConfigValue[SecretString] =
-    secrets(region, DefaultCredentialsProvider.create())
+    secrets(SecretsManagerAsyncClient.builder().region(region.asJava).credentialsProvider(DefaultCredentialsProvider.create()))
 
   def secrets(
-    region: Region,
-    credentials: AwsCredentialsProvider
+    clientBuilder: SecretsManagerAsyncClientBuilder
   ): ConfigValue[SecretString] =
     ConfigValue.resource {
       Resource {
         IO {
           val client =
-            SecretsManagerAsyncClient.builder()
-              .region(region.asJava)
-              .credentialsProvider(credentials)
+            clientBuilder
               .build()
 
           val shutdown =
