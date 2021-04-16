@@ -1,32 +1,31 @@
 package ciris.aws
 
-import cats.effect.{IO, Resource}
+import cats.effect.kernel.{Resource, Sync}
 import ciris.ConfigValue
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider
+import software.amazon.awssdk.auth.credentials.{AwsCredentialsProvider, DefaultCredentialsProvider}
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerAsyncClient
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerAsyncClientBuilder
 
 package object secretsmanager {
-  def secrets(
+  def secrets[F[_]: Sync](
     region: Region
-  ): ConfigValue[SecretString] =
+  ): ConfigValue[F, SecretString[F]] =
     secrets(SecretsManagerAsyncClient.builder().region(region.asJava).credentialsProvider(DefaultCredentialsProvider.create()))
 
-  def secrets(
+  def secrets[F[_]: Sync](
     clientBuilder: SecretsManagerAsyncClientBuilder
-  ): ConfigValue[SecretString] =
+  ): ConfigValue[F, SecretString[F]] =
     ConfigValue.resource {
       Resource {
-        IO {
+        Sync[F].delay {
           val client =
             clientBuilder
               .build()
 
           val shutdown =
-            IO(client.close())
+            Sync[F].delay(client.close())
 
-          (ConfigValue.default(SecretString(client)), shutdown)
+          (ConfigValue.default(SecretString[F](client)), shutdown)
         }
       }
     }
