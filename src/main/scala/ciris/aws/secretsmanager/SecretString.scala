@@ -10,7 +10,7 @@ sealed abstract class SecretString[F[_]] {
   def apply(key: String, version: String): ConfigValue[F, Secret[String]]
 }
 
-private[secretsmanager] final object SecretString {
+private[secretsmanager] object SecretString {
   final def apply[F[_]](client: SecretsManagerAsyncClient): SecretString[F] =
     new SecretString[F] {
       override final def apply(key: String): ConfigValue[F, Secret[String]] =
