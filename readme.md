@@ -34,8 +34,8 @@ object Main extends IOApp {
           region <- env("AWS_REGION").as[Region].default(Region.EU_WEST_1)
           secret <- secrets(region)
           passwords <- (
-              secret("arn:aws:secretsmanager:us-west-2:111122223333:secret:db-password-prod"),
-              secret("arn:aws:secretsmanager:us-west-2:111122223333:secret:api-key")
+              secret(key = "db-password-prod", version = "1.0"),
+              secret(key = "api-key", version = "1.0")
             ).parMapN { (dbPassword, apiKey) =>
               Passwords(
                 dbPassword = dbPassword,
