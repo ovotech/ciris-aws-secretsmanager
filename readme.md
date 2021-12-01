@@ -9,7 +9,7 @@ This module is heavily derived from the existing [Ciris SSM module](https://gith
 To get started with [sbt](https://www.scala-sbt.org), simply add the following lines to your `build.sbt` file.
 
 ```scala
-libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "3.0.1"
+libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "5.0.1"
 ```
 
 The library is published for Scala 2.12 and 2.13.
@@ -34,8 +34,8 @@ object Main extends IOApp {
           region <- env("AWS_REGION").as[Region].default(Region.EU_WEST_1)
           secret <- secrets(region)
           passwords <- (
-              secret("db-password-prod"),
-              secret("api-key")
+              secret(key = "db-password-prod", version = "1.0"),
+              secret(key = "api-key", version = "1.0")
             ).parMapN { (dbPassword, apiKey) =>
               Passwords(
                 dbPassword = dbPassword,
