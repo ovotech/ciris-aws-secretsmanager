@@ -12,7 +12,7 @@ To get started with [sbt](https://www.scala-sbt.org), simply add the following l
 libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "5.0.1"
 ```
 
-The library is published for Scala 2.12 and 2.13.
+The library is published for Scala 2.12, 2.13 and 3.1.
 
 ### Example
 
