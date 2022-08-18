@@ -8,8 +8,14 @@ This module is heavily derived from the existing [Ciris SSM module](https://gith
 
 To get started with [sbt](https://www.scala-sbt.org), simply add the following lines to your `build.sbt` file.
 
+For Cats Effect 3:
 ```scala
 libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "5.0.1"
+```
+
+For Cats Effect 2:
+```scala
+libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "4.0.0"
 ```
 
 The library is published for Scala 2.12, 2.13 and 3.1.
