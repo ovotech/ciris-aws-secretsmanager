@@ -20,8 +20,6 @@ libraryDependencies += "com.ovoenergy" %% "ciris-aws-secretsmanager" % "4.0.0"
 
 The library is published for Scala 2.12, 2.13 and 3.1.
 
-
-
 ### Example
 
 ```scala
