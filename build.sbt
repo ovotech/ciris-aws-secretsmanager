@@ -2,15 +2,15 @@ name := "ciris-aws-secretsmanager"
 organization := "com.ovoenergy"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-scalaVersion := "3.1.0"
-crossScalaVersions := Seq(scalaVersion.value, "2.13.5", "2.12.13")
+scalaVersion := "3.2.2"
+crossScalaVersions := Seq(scalaVersion.value, "2.13.10", "2.12.17")
 releaseCrossBuild := true
 
 libraryDependencies ++= Seq(
-  "is.cir" %% "ciris" % "2.2.1",
-  "org.typelevel" %% "cats-core" % "2.6.1",
-  "org.typelevel" %% "cats-effect" % "3.2.9",
-  "software.amazon.awssdk" % "secretsmanager" % "2.15.58",
+  "is.cir" %% "ciris" % "3.1.0",
+  "org.typelevel" %% "cats-core" % "2.9.0",
+  "org.typelevel" %% "cats-effect" % "3.4.8",
+  "software.amazon.awssdk" % "secretsmanager" % "2.20.32",
   "org.typelevel" %% "munit-cats-effect-3" % "1.0.6" % Test
 )
 
@@ -48,3 +48,5 @@ releaseProcess := Seq[ReleaseStep](
   commitNextVersion,
   pushChanges
 )
+
+Compile / doc / sources := Nil
