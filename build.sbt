@@ -48,3 +48,5 @@ releaseProcess := Seq[ReleaseStep](
   commitNextVersion,
   pushChanges
 )
+
+Compile / doc / sources := Nil
